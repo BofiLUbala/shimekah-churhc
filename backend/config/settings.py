@@ -18,7 +18,8 @@ ALLOWED_HOSTS = [
     host.strip()
     for host in os.getenv(
         "ALLOWED_HOSTS",
-        "localhost,127.0.0.1,.koyeb.app",
+        # Railway (*.up.railway.app), Koyeb (*.koyeb.app) et localhost pour le dev
+        "localhost,127.0.0.1,.up.railway.app,.koyeb.app",
     ).split(",")
     if host.strip()
 ]
