@@ -169,6 +169,8 @@ h1, h2, h3, h4 {
   gap: 0.75rem;
   text-decoration: none;
   min-width: 0;
+  position: relative;
+  z-index: 52;
 }
 
 .header__logo {
@@ -193,6 +195,7 @@ h1, h2, h3, h4 {
   flex-direction: column;
   line-height: 1.2;
   min-width: 0;
+  overflow: hidden;
 }
 
 .header__denomination {
@@ -201,6 +204,9 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   color: var(--color-accent);
   font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header__name {
@@ -262,7 +268,8 @@ h1, h2, h3, h4 {
   border: none;
   cursor: pointer;
   position: relative;
-  z-index: 50;
+  z-index: 52;
+  flex-shrink: 0;
 }
 
 .nav-toggle span {
@@ -301,13 +308,17 @@ h1, h2, h3, h4 {
 
 .nav {
   position: fixed;
-  inset: 64px 0 auto 0;
+  top: 60px;
+  left: 0;
+  right: 0;
   background: #fff;
   box-shadow: var(--shadow-md);
   padding: 1rem 1.5rem 1.25rem;
-  transform: translateY(-120%);
-  transition: transform 0.25s ease;
-  max-height: calc(100vh - 64px);
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.25s ease, opacity 0.2s ease, visibility 0.25s ease;
+  max-height: calc(100vh - 60px);
   overflow-y: auto;
   z-index: 45;
   pointer-events: none;
@@ -315,6 +326,8 @@ h1, h2, h3, h4 {
 
 .nav--open {
   transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
   pointer-events: auto;
 }
 
@@ -322,6 +335,36 @@ h1, h2, h3, h4 {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+}
+
+@media (max-width: 480px) {
+  .header__inner {
+    padding: 0.5rem 0;
+    gap: 0.5rem;
+  }
+
+  .header__brand {
+    gap: 0.5rem;
+  }
+
+  .header__logo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .header__denomination {
+    font-size: 0.65rem;
+  }
+
+  .header__name {
+    font-size: 0.85rem;
+  }
+
+  .nav-toggle {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -334,6 +377,9 @@ h1, h2, h3, h4 {
     padding: 0;
     max-height: none;
     overflow: visible;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .nav__list {
