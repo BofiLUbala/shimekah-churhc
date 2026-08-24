@@ -18,8 +18,8 @@ ALLOWED_HOSTS = [
     host.strip()
     for host in os.getenv(
         "ALLOWED_HOSTS",
-        # Railway (*.up.railway.app), Koyeb (*.koyeb.app) et localhost pour le dev
-        "localhost,127.0.0.1,.up.railway.app,.koyeb.app",
+        # Render (*.onrender.com), Railway (*.up.railway.app), localhost pour le dev
+        "localhost,127.0.0.1,.onrender.com,.up.railway.app",
     ).split(",")
     if host.strip()
 ]
@@ -125,8 +125,7 @@ CORS_ALLOWED_ORIGINS = [
     origin.strip()
     for origin in os.getenv(
         "CORS_ALLOWED_ORIGINS",
-        # URL temporaire Cloudflare Pages + localhost pour le dev
-        "https://pages.dev,"
+        # Cloudflare Pages + localhost pour le dev
         "http://localhost:5173,http://127.0.0.1:5173,"
         "http://localhost:3000,http://127.0.0.1:3000",
     ).split(",")
@@ -134,8 +133,18 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ALLOW_CREDENTIALS = True
 
-# Accepte tous les sous-domaines *.pages.dev (URL temporaire et future URL Cloudflare)
-CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://[\w-]+\.pages\.dev$"]
+# Accepte tous les sous-domaines *.pages.dev (Cloudflare Pages)
+CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://[\w\-]+\.pages\.dev$"]
+
+# --- CSRF (HTTPS frontend → Django backend) --------------------------------
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in os.getenv(
+        "CSRF_TRUSTED_ORIGINS",
+        "",
+    ).split(",")
+    if origin.strip()
+]
 
 if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
