@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useChurch } from '../context/ChurchContext'
 import NewsletterForm from './NewsletterForm'
 import SocialIcon from './SocialIcon'
+import defaultLogo from '../assets/logo.png'
 
 const QUICK_LINKS = [
   { to: '/about', label: 'À propos' },
@@ -22,8 +23,17 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer__grid">
         <div className="footer__col footer__identity">
-          <p className="footer__denomination">{church?.denomination}</p>
-          <h3 className="footer__name">{church?.church_name}</h3>
+          <div className="footer__brand-header">
+            <img
+              src={church?.logo || defaultLogo}
+              alt="Logo Centre Missionnaire Shimekah"
+              className="footer__logo"
+            />
+            <div>
+              <p className="footer__denomination">{church?.denomination || 'ECC/56è CECC'}</p>
+              <h3 className="footer__name">{church?.church_name || 'Centre Missionnaire Shimekah'}</h3>
+            </div>
+          </div>
           <address className="footer__address">
             {church?.address}
             {church?.location_reference && (

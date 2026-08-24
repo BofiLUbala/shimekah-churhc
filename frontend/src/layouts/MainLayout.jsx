@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import FloatingButton from '../components/FloatingButton'
 
 export default function MainLayout() {
   const { pathname } = useLocation()
@@ -17,6 +18,7 @@ export default function MainLayout() {
         <Outlet />
       </main>
       <Footer />
+      <FloatingButton />
     </div>
   )
 }
