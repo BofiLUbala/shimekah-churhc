@@ -20,6 +20,7 @@ backend/media/*
 # Node
 node_modules/
 frontend/dist/
+package-lock.json
 
 # OS / editor
 .DS_Store
