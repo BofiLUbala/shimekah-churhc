@@ -14,9 +14,11 @@ from .views import (
     VideoDetailAPIView,
     VideoListAPIView,
     VisionListAPIView,
+    health_check,
 )
 
 urlpatterns = [
+    path("health/", health_check, name="api-health"),
     path("church/", ChurchSettingsAPIView.as_view(), name="api-church"),
     path("visions/", VisionListAPIView.as_view(), name="api-visions"),
     path("structures/", StructureListAPIView.as_view(), name="api-structures"),

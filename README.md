@@ -55,13 +55,25 @@ http://localhost:5173
 
 ## Déploiement
 
-Backend :
+Backend (Render) :
 
 ```text
 Root Directory: backend
+Build Command:  (laisser vide)
+Start Command:  python manage.py migrate --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
 ```
 
-Frontend :
+Variables Render :
+
+```env
+SECRET_KEY=<clé-aléatoire-de-64-caractères>
+DEBUG=False
+ALLOWED_HOSTS=shimekah-churhc.onrender.com
+CORS_ALLOWED_ORIGINS=https://shimekah-churhc.bofigauthier3.workers.dev
+CSRF_TRUSTED_ORIGINS=https://shimekah-churhc.bofigauthier3.workers.dev
+```
+
+Frontend (Cloudflare) :
 
 ```text
 Root Directory: frontend
@@ -69,10 +81,10 @@ Build Command: npm run build
 Output Directory: dist
 ```
 
-Variable frontend :
+Variable Cloudflare :
 
 ```env
-VITE_API_BASE_URL=https://your-backend-domain/api
+VITE_API_BASE_URL=https://shimekah-churhc.onrender.com/api
 ```
 
 Ne jamais publier les fichiers `.env` ou les clés secrètes sur GitHub.
